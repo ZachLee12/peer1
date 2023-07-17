@@ -1,0 +1,18 @@
+{
+  "name": "video-streaming-peerjs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "peerServer": "node peer-server.cjs"
+  },
+  "devDependencies": {
+    "vite": "^4.4.0"
+  },
+  "dependencies": {
+    "peer": "^1.0.0"
+  }
+}
