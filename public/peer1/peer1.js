@@ -18,7 +18,6 @@ peer1.on('connection', (dataConnection) => {
 
     dataConnection.on('open', () => {
         console.log(`%c[connection]: connection ready for ${dataConnection.peer}`, 'color:#35ce35;')
-
         //DataConnection (receiving messages)
         const conn = peer1.connect('Zach')
         conn.on('open', () => {
