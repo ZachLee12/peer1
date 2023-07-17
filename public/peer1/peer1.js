@@ -1,10 +1,14 @@
 import Peer from "peerjs";
 const peer1 = new Peer("Philipp", {
-    host: "localhost",
+    host: "srldev.enterpriselab.ch",
     port: 9000,
     path: "/",
+
 })
+
+//DOM elements
 const sendMsgBtn = document.querySelector('.btn')
+const videoEl = document.getElementById('video')
 
 //Peer
 // 'open' = when connection to PeerServer is established
@@ -46,20 +50,24 @@ const videoStreamBtn = document.querySelector('.video-stream-btn')
 const closeStreamBtn = document.querySelector('.close-stream-btn')
 let mediaConnection;
 videoStreamBtn.addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getDisplayMedia({ video: true })
         .then(stream => {
             mediaConnection = confirm('call Zach?') ? peer1.call('Zach', stream) : null;
             console.log(mediaConnection)
-            const videoEl = document.getElementById('video')
-            videoEl.srcObject = stream
-            videoEl.play()
+            if (mediaConnection) {
+                videoEl.srcObject = stream
+                videoEl.style.display = 'block';
+                videoEl.play()
+            }
         })
         .catch(err => console.error(err))
 })
 
 closeStreamBtn.addEventListener('click', async () => {
     if (mediaConnection) {
-        await mediaConnection.close()
+        mediaConnection.close()
+        videoEl.pause();
+        videoEl.style.display = 'none';
         console.log('Video ended')
     }
 })
