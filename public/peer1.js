@@ -1,5 +1,5 @@
 import Peer from "peerjs";
-import { addTabSwitches } from "./TabSwitcher.js";
+import { addMessageFromPhilipp, addMessageFromZach, addTabSwitches } from "./TabSwitcher.js";
 
 addTabSwitches()
 
@@ -10,9 +10,8 @@ const peer1 = new Peer("Philipp", {
 })
 
 //DOM elements
-const sendMsgBtn = document.querySelector('.btn')
 const videoEl = document.getElementById('video')
-
+const sendMessageBtn = document.querySelector('.send-message-btn')
 //Peer
 // 'open' = when connection to PeerServer is established
 peer1.on('open', (id) => console.log(`${id} connected to PeerServer`))
@@ -21,7 +20,10 @@ peer1.on('open', (id) => console.log(`${id} connected to PeerServer`))
 peer1.on('connection', (dataConnection) => {
     console.log('[log]: ' + dataConnection.peer + " connected")
     dataConnection.on('close', () => console.log(`%c[connection]: connection closed for ${dataConnection.peer}`, 'color:red;'))
-    dataConnection.on('data', data => console.log(`[message from ${dataConnection.peer}]: ${data}`))
+    dataConnection.on('data', data => {
+        console.log(`[message from ${dataConnection.peer}]: ${data}`)
+        addMessageFromZach(data);
+    })
 
     dataConnection.on('open', () => {
         console.log(`%c[connection]: connection ready for ${dataConnection.peer}`, 'color:#35ce35;')
@@ -33,13 +35,12 @@ peer1.on('connection', (dataConnection) => {
         conn.on('close', () => {
             console.log(`%c[connection]: connection with ${conn.peer} lost`, 'color:red;')
         })
-
-        conn.on('data', data => console.log(`[message from ${conn.peer}]: ${data}`))
-
     })
 
-    sendMsgBtn.addEventListener('click', () => {
-        dataConnection.send("ITS ME PHILIPP")
+    sendMessageBtn.addEventListener('click', () => {
+        const msg = "Message from Philipp"
+        dataConnection.send(msg)
+        addMessageFromPhilipp(msg);
     })
 })
 

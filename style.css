@@ -63,6 +63,18 @@ body {
   background-color: #55eafd;
 }
 
+.message-philipp {
+  background-color: #d2d2d2;
+  border: 2px solid black;
+  margin: 2px 0;
+}
+
+.message-zach {
+  background-color: #a6e7f0;
+  border: 2px solid black;
+  margin: 2px 0;
+}
+
 .hidden {
   display: none;
 }
