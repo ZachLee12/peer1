@@ -9,18 +9,26 @@
 </head>
 
 <body>
-  <div id="app"></div>
-  <h1>Remember to run Peer Server!</h1>
-  <h1>Peer 1: Philipp</h1>
-  <button class="video-stream-btn">Video Stream</button>
-  <button class="close-stream-btn">Close Video</button>
-  <button class="btn">Send message</button>
+  <div class="app">
+    <p class="peer-title">Peer 1: Philipp</p>
+    <div class="btns-wrapper">
+      <button class="video-stream-btn">Video Stream</button>
+      <button class="close-stream-btn">Close Video</button>
+      <button class="send-message-btn">Send message</button>
+    </div>
+    <video id="video"></video>
+    <div class="messages-wrapper">
+      <p class="messages-title">Messages</p>
 
-  <video id="video"></video>
+    </div>
+  </div>
 
-  <script src="./public/peer1/peer1.js" type="module"></script>
+
+
+  <script src="./public/peer1.js" type="module"></script>
   <script src="peer.js" type="module"></script>
   <script type="module" src="/main.js"></script>
+  <link rel="stylesheet" href="./style.css">
 </body>
 
 </html>

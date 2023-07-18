@@ -1,9 +1,12 @@
 import Peer from "peerjs";
+import { addTabSwitches } from "./TabSwitcher.js";
+
+addTabSwitches()
+
 const peer1 = new Peer("Philipp", {
     host: "srldev.enterpriselab.ch",
     port: 9000,
     path: "/",
-
 })
 
 //DOM elements
