@@ -3,6 +3,7 @@ import { addMessageFromPhilipp, addMessageFromZach, addTabSwitches } from "./Tab
 
 addTabSwitches()
 
+let conn;
 const peer1 = new Peer("Philipp", {
     host: "srldev.enterpriselab.ch",
     port: 9000,
@@ -12,6 +13,9 @@ const peer1 = new Peer("Philipp", {
 //DOM elements
 const videoEl = document.getElementById('video')
 const sendMessageBtn = document.querySelector('.send-message-btn')
+
+const msgToSend = "Message from Philipp"
+
 //Peer
 // 'open' = when connection to PeerServer is established
 peer1.on('open', (id) => console.log(`${id} connected to PeerServer`))
@@ -22,13 +26,17 @@ peer1.on('connection', (dataConnection) => {
     dataConnection.on('close', () => console.log(`%c[connection]: connection closed for ${dataConnection.peer}`, 'color:red;'))
     dataConnection.on('data', data => {
         console.log(`[message from ${dataConnection.peer}]: ${data}`)
-        addMessageFromZach(data);
+        if (typeof data === typeof true) {
+            addMessageFromPhilipp(msgToSend);
+        } else {
+            addMessageFromZach(data);
+        }
     })
 
     dataConnection.on('open', () => {
         console.log(`%c[connection]: connection ready for ${dataConnection.peer}`, 'color:#35ce35;')
         //DataConnection (receiving messages)
-        const conn = peer1.connect('Zach')
+        conn = peer1.connect('Zach')
         conn.on('open', () => {
             console.log(`%c[connection]: connection with ${conn.peer} established`, 'color:#35ce35;')
         })
@@ -38,9 +46,7 @@ peer1.on('connection', (dataConnection) => {
     })
 
     sendMessageBtn.addEventListener('click', () => {
-        const msg = "Message from Philipp"
-        dataConnection.send(msg)
-        addMessageFromPhilipp(msg);
+        dataConnection.send(msgToSend)
     })
 })
 
